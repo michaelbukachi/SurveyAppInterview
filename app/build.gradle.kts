@@ -5,13 +5,13 @@ plugins {
 }
 
 android {
-    compileSdk = 31
+    compileSdk = 30
     buildToolsVersion = "30.0.3"
 
     defaultConfig {
         applicationId = "org.mbukachi.survey_app"
         minSdk = 21
-        targetSdk = 31
+        targetSdk = 30
         versionCode = 1
         versionName = "1.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -20,6 +20,11 @@ android {
     buildFeatures {
         dataBinding = true
         viewBinding = true
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.0.1"
     }
 
     buildTypes {
@@ -47,6 +52,7 @@ android {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":data"))
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.21")
     implementation("androidx.core:core-ktx:1.6.0")
@@ -63,6 +69,8 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:${Versions.composeVersion}")
     implementation("com.google.accompanist:accompanist-pager:${Versions.accompanistVersion}")
     implementation("com.google.accompanist:accompanist-swiperefresh:${Versions.accompanistVersion}")
+    implementation("androidx.compose.runtime:runtime-livedata:1.1.0-alpha01")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07")
 
     implementation("io.insert-koin:koin-android:${Versions.koinVersion}")
     implementation("io.insert-koin:koin-androidx-workmanager:${Versions.koinVersion}")
@@ -70,7 +78,7 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutinesVersion}")
 
-    implementation("com.jakewharton.timber:timber:4.7.1")
+    implementation("com.jakewharton.timber:timber:5.0.0")
 
     implementation("com.github.kirich1409:viewbindingpropertydelegate:1.4.4")
 
@@ -86,7 +94,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test:rules:1.3.0")
     androidTestImplementation("androidx.test:runner:1.3.0")
-    androidTestImplementation("org.koin:koin-test:${Versions.koinVersion}")
+    androidTestImplementation("io.insert-koin:koin-test:${Versions.koinVersion}")
     androidTestImplementation("io.mockk:mockk-android:1.11.0")
     androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.3")
     androidTestImplementation("app.cash.turbine:turbine:0.4.1")

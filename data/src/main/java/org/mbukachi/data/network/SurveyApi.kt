@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface SurveyApi {
 
-    @GET("/")
+    @GET("d628facc-ec18-431d-a8fc-9c096e00709a")
     suspend fun fetchSurvey(): Response<JsonObject>
 }
