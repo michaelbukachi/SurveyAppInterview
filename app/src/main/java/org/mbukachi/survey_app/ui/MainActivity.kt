@@ -28,12 +28,13 @@ import org.mbukachi.survey_app.ui.theme.SurveyAppTheme
 
 class MainActivity : ComponentActivity() {
 
+    @ExperimentalPagerApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             SurveyAppTheme {
                 Surface(color = MaterialTheme.colors.background) {
-
+                    MainScreen()
                 }
             }
         }

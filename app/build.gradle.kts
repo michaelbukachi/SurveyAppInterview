@@ -20,6 +20,11 @@ android {
     buildFeatures {
         dataBinding = true
         viewBinding = true
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.0.1"
     }
 
     buildTypes {
@@ -47,6 +52,7 @@ android {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":data"))
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.21")
     implementation("androidx.core:core-ktx:1.6.0")
@@ -63,6 +69,8 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:${Versions.composeVersion}")
     implementation("com.google.accompanist:accompanist-pager:${Versions.accompanistVersion}")
     implementation("com.google.accompanist:accompanist-swiperefresh:${Versions.accompanistVersion}")
+    implementation("androidx.compose.runtime:runtime-livedata:1.1.0-alpha01")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07")
 
     implementation("io.insert-koin:koin-android:${Versions.koinVersion}")
     implementation("io.insert-koin:koin-androidx-workmanager:${Versions.koinVersion}")

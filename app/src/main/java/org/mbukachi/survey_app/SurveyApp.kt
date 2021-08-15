@@ -4,7 +4,10 @@ import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin
+import org.koin.core.module.Module
+import org.mbukachi.data.dataModules
 import timber.log.Timber
+import java.util.Collections.addAll
 
 class SurveyApp : Application() {
     override fun onCreate() {
@@ -19,6 +22,8 @@ class SurveyApp : Application() {
         startKoin {
             androidLogger()
             androidContext(this@SurveyApp)
+            modules(dataModules)
+            modules(appModule)
         }
     }
 
