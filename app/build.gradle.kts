@@ -70,7 +70,7 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutinesVersion}")
 
-    implementation("com.jakewharton.timber:timber:4.7.1")
+    implementation("com.jakewharton.timber:timber:5.0.0")
 
     implementation("com.github.kirich1409:viewbindingpropertydelegate:1.4.4")
 
@@ -86,7 +86,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test:rules:1.3.0")
     androidTestImplementation("androidx.test:runner:1.3.0")
-    androidTestImplementation("org.koin:koin-test:${Versions.koinVersion}")
+    androidTestImplementation("io.insert-koin:koin-test:${Versions.koinVersion}")
     androidTestImplementation("io.mockk:mockk-android:1.11.0")
     androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.3")
     androidTestImplementation("app.cash.turbine:turbine:0.4.1")

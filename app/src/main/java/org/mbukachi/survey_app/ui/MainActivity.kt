@@ -18,27 +18,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.work.Constraints
 import androidx.work.NetworkType
-import androidx.work.WorkManager
-import by.kirich1409.viewbindingdelegate.viewBinding
-import com.chepsi.survey.app.databinding.ActivityMainBinding
-import com.chepsi.survey.app.domain.repos.Survey
-import com.chepsi.survey.app.domain.repos.SurveyResponse
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.compose.getViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.mbukachi.survey_app.ui.theme.SurveyAppTheme
 
 class MainActivity : ComponentActivity() {
-    private val binding: ActivityMainBinding by viewBinding()
-    private val mainViewModel: MainViewModel by viewModel()
-    private val workManager by lazy {
-        WorkManager.getInstance(applicationContext)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +59,7 @@ class MainActivity : ComponentActivity() {
 //        })
     }
 
-    private fun setupViewPager(survey: Survey) {
+    private fun setupViewPager() {
 
 //        val surveyAdapter = SurveyQuestionsPagerAdapter(this, survey)
 //        binding.surveyVP.apply {
@@ -80,7 +68,7 @@ class MainActivity : ComponentActivity() {
 //        }
     }
 
-    private fun createSubmitSurveyWorker(answeredSurveys: List<SurveyResponse>) {
+    private fun createSubmitSurveyWorker() {
 //        val imageWorker = PeriodicWorkRequestBuilder<SubmitSurveyWorker>(15, TimeUnit.MINUTES)
 //            .setConstraints(constraints)
 //            .addTag("submitSurveyWork")
@@ -102,11 +90,11 @@ class MainActivity : ComponentActivity() {
     fun swipeNext() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
-        binding.surveyVP.currentItem = binding.surveyVP.currentItem + 1
+//        binding.surveyVP.currentItem = binding.surveyVP.currentItem +
     }
 
     fun viewPagerReset() {
-        Snackbar.make(binding.root, "Data Saved Successfully", Snackbar.LENGTH_LONG).show()
+//        Snackbar.make(binding.root, "Data Saved Successfully", Snackbar.LENGTH_LONG).show()
 //        mainViewModel.currentPosition.postValue(0)
 //        mainViewModel.resetResponse()
     }
