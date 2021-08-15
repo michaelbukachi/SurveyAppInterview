@@ -5,13 +5,13 @@ plugins {
 }
 
 android {
-    compileSdk = 31
+    compileSdk = 30
     buildToolsVersion = "30.0.3"
 
     defaultConfig {
         applicationId = "org.mbukachi.survey_app"
         minSdk = 21
-        targetSdk = 31
+        targetSdk = 30
         versionCode = 1
         versionName = "1.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
