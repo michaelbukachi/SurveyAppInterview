@@ -13,7 +13,7 @@ import org.mbukachi.domain.SurveyRepo
 
 class SurveyRepoImpl(private val api: SurveyApi, private val surveyDao: SurveyDao) : SurveyRepo {
 
-    override suspend fun getSurvey(lang: String): Flow<DataResult> = flow {
+    override fun getSurvey(lang: String): Flow<DataResult> = flow {
         if (!surveyDao.exists()) {
             val response = api.fetchSurvey()
             if (response.isSuccessful) {

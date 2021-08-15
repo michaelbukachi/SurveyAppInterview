@@ -4,5 +4,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface SurveyRepo {
 
-    suspend fun getSurvey(lang: String = "en"): Flow<DataResult>
+    fun getSurvey(lang: String = "en"): Flow<DataResult>
 }

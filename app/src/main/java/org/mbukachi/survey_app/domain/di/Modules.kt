@@ -9,10 +9,10 @@ import com.chepsi.survey.app.domain.usecases.AnsweredSurveysUseCase
 import com.chepsi.survey.app.domain.usecases.SendSurveyUseCase
 import com.chepsi.survey.app.domain.usecases.SubmitSurveyUseCase
 import com.chepsi.survey.app.domain.usecases.SurveyUseCase
-import com.chepsi.survey.app.presentation.main.MainViewModel
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import org.koin.dsl.module
+import org.mbukachi.survey_app.ui.MainViewModel
 import timber.log.Timber
 
 val appModule = module(true) {

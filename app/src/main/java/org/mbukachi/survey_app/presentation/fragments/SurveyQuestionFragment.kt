@@ -14,10 +14,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.chepsi.survey.app.R
 import com.chepsi.survey.app.domain.repos.*
-import com.chepsi.survey.app.presentation.main.MainActivity
-import com.chepsi.survey.app.presentation.main.MainViewModel
 import com.google.android.material.textfield.TextInputEditText
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.mbukachi.survey_app.ui.MainActivity
+import org.mbukachi.survey_app.ui.MainViewModel
 
 class SurveyQuestionFragment : Fragment() {
     private val mainViewModel: MainViewModel by sharedViewModel()

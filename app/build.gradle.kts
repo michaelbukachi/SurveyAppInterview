@@ -46,6 +46,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.21")
     implementation("androidx.core:core-ktx:1.6.0")
@@ -53,14 +54,21 @@ dependencies {
     implementation("com.google.android.material:material:1.4.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.0")
 
+    implementation("androidx.activity:activity-compose:1.3.1")
+    implementation("androidx.compose.ui:ui:${Versions.composeVersion}")
+    implementation("androidx.compose.ui:ui-tooling:${Versions.composeVersion}")
+    implementation("androidx.compose.foundation:foundation:${Versions.composeVersion}")
+    implementation("androidx.compose.material:material:${Versions.composeVersion}")
+    implementation("androidx.compose.material:material-icons-core:${Versions.composeVersion}")
+    implementation("androidx.compose.material:material-icons-extended:${Versions.composeVersion}")
+    implementation("com.google.accompanist:accompanist-pager:${Versions.accompanistVersion}")
+    implementation("com.google.accompanist:accompanist-swiperefresh:${Versions.accompanistVersion}")
+
     implementation("io.insert-koin:koin-android:${Versions.koinVersion}")
     implementation("io.insert-koin:koin-androidx-workmanager:${Versions.koinVersion}")
+    implementation("io.insert-koin:koin-androidx-compose:${Versions.koinVersion}")
 
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    //implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.5.0")
-    implementation("com.squareup.okhttp3:okhttp:4.9.1")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.google.code.gson:gson:2.8.6")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutinesVersion}")
 
     implementation("com.jakewharton.timber:timber:4.7.1")
 
