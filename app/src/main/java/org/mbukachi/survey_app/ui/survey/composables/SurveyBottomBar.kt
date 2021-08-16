@@ -21,7 +21,7 @@ fun SurveyBottomBar(
 ) {
     Surface(
         elevation = 7.dp,
-        modifier = Modifier.fillMaxWidth() // .border(1.dp, MaterialTheme.colors.primary)
+        modifier = Modifier.fillMaxWidth()
     ) {
 
         Row(

@@ -24,13 +24,12 @@ class SurveyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         return ComposeView(requireContext()).apply {
-            // In order for savedState to work, the same ID needs to be used for all instances.
-            id = R.id.SHOW_PROGRESS
-
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
+            viewModel.fetchSurveys()
+
             setContent {
                 SurveyAppTheme {
                     val surveyState = viewModel.uiState.collectAsState()
@@ -39,15 +38,20 @@ class SurveyFragment : Fragment() {
                             questions = surveyState.value as SurveyState.Questions,
                             onDonePressed = { viewModel.submitResponse(surveyState.value as SurveyState.Questions) },
                             onBackPressed = {
+                                viewModel.resetState()
                                 activity?.onBackPressedDispatcher?.onBackPressed()
                             },
                         )
                         is SurveyState.Done -> SurveyDoneScreen(
                             onDonePressed = {
+                                viewModel.resetState()
                                 activity?.onBackPressedDispatcher?.onBackPressed()
                             }
                         )
                         SurveyState.Loading -> LoadingScreen()
+                        SurveyState.RestartSurvey -> {
+                            viewModel.fetchSurveys()
+                        }
                     }
                 }
             }

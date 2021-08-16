@@ -1,6 +1,7 @@
 package org.mbukachi.survey_app.ui.survey.composables
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,7 +21,7 @@ fun Loader(modifier: Modifier = Modifier) {
             .fillMaxWidth()
             .background(MaterialTheme.colors.background)
             .padding(all = 16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         CircularProgressIndicator()
     }

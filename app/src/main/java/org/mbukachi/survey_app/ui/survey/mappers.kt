@@ -15,6 +15,9 @@ fun Question.toUI(index: Int) = Question(
         QuestionType.FREE_TEXT -> {
             PossibleAnswer.InputChoice("")
         }
+        QuestionType.TYPE_VALUE -> {
+            PossibleAnswer.NumberInputChoice(0f)
+        }
         else -> {
             PossibleAnswer.InputChoice("")
         }

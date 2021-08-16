@@ -19,7 +19,7 @@ class SurveyViewModel(
 
     private lateinit var surveyInitialState: SurveyState
 
-    init {
+    fun fetchSurveys() {
         viewModelScope.launch {
             surveyRepo.getSurvey().collect {
                 when (val result = it) {
@@ -60,5 +60,9 @@ class SurveyViewModel(
 //        val answers = surveyQuestions.questionsState.mapNotNull { it.answer }
 //        val result = surveyRepository.getSurveyResult(answers)
 //        _uiState.value = SurveyState.Result(surveyQuestions.surveyTitle, result)
+    }
+
+    fun resetState() {
+       mutableUiState.value = SurveyState.RestartSurvey
     }
 }

@@ -5,10 +5,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.mbukachi.survey_app.ui.theme.SurveyAppTheme
@@ -51,6 +53,14 @@ private fun QuestionContent(
                     answer = answer as Answer.Input?,
                     onAction = { answer ->
                         onAnswer(Answer.Input(answer = answer))
+
+                    }
+                )
+                is PossibleAnswer.NumberInputChoice -> NumberInputQuestion(
+                    possibleAnswer = question.answer,
+                    answer = answer as Answer.NumberInput? ,
+                    onAction = { answer ->
+                        onAnswer(Answer.NumberInput(answer = answer))
 
                     }
                 )
@@ -169,6 +179,28 @@ private fun InputQuestion(
         onValueChange = { text = it
                         onAction(text) },
         modifier = Modifier.fillMaxWidth()
+    )
+}
+
+@Composable
+private fun NumberInputQuestion(
+    possibleAnswer: PossibleAnswer.NumberInputChoice,
+    answer: Answer.NumberInput?,
+    onAction: (Float) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    var text by remember {
+        mutableStateOf("")
+    }
+    OutlinedTextField(
+        value = text ,
+        onValueChange = { text = it
+            if (it.isNotEmpty()){
+                onAction(text.toFloat())
+            }
+                        },
+        modifier = Modifier.fillMaxWidth(),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
     )
 }
 

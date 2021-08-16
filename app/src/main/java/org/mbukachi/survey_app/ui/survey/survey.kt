@@ -24,9 +24,11 @@ data class Option(
 sealed class PossibleAnswer {
     data class SingleChoice(val options: List<Option>) : PossibleAnswer()
     data class InputChoice(val input: String) : PossibleAnswer()
+    data class NumberInputChoice(val input: Float) : PossibleAnswer()
 }
 
 sealed class Answer<T : PossibleAnswer> {
     data class SingleChoice(val answer: String) : Answer<PossibleAnswer.SingleChoice>()
     data class Input(val answer: String) : Answer<PossibleAnswer.InputChoice>()
+    data class NumberInput(val answer: Float) : Answer<PossibleAnswer.NumberInputChoice>()
 }

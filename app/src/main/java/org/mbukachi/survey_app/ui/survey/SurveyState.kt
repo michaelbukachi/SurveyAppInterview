@@ -31,4 +31,5 @@ sealed class SurveyState {
     ) : SurveyState()
 
     object Loading : SurveyState()
+    object RestartSurvey : SurveyState()
 }
