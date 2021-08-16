@@ -9,7 +9,7 @@
     <string name="btn_submit">Submit</string>
 
     <!-- survey-->
-    <string name="which_jetpack_library">Which Jetpack library are you?</string>
+    <string name="survey_title">Farmer Survey</string>
     <string name="question_count">\u00A0of %d</string>
     <string name="select_one">Select one.</string>
     <string name="select_all">Select all that apply.</string>
@@ -20,15 +20,14 @@
     <string name="name_description">Please enter your name</string>
 
     <!-- question 2 -->
-    <string name="pick_superhero">What is the gender of the farmer</string>
+    <string name="gender_question">What is the gender of the farmer</string>
     <string name="option_one">Male</string>
     <string name="option_two">Female</string>
     <string name="option_three">Other</string>
 
     <!-- question 3  -->
-    <string name="takeaway">What is the size of the farm in hectares?</string>
+    <string name="farm_size_question">What is the size of the farm in hectares?</string>
     <string name="farm_size_description">Please enter size of your farm</string>
-    <string name="pick_date">Pick a date</string>
 
     <string name="survey_result">Congratulations, you are %s</string>
     <string name="survey_result_description">You have finished the survey. Thank you for finishing the

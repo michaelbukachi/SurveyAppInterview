@@ -3,7 +3,7 @@ package org.mbukachi.survey_app.ui.survey
 import com.chepsi.survey.app.R
 
 // Static data of questions
-private val jetpackQuestions = mutableListOf(
+private val farmerSurveyQuestions = mutableListOf(
     Question(
         id = 1,
         questionText = R.string.name_question,
@@ -12,7 +12,7 @@ private val jetpackQuestions = mutableListOf(
     ),
     Question(
         id = 2,
-        questionText = R.string.pick_superhero,
+        questionText = R.string.gender_question,
         answer = PossibleAnswer.SingleChoice(
               listOf(
                   R.string.option_one,
@@ -23,15 +23,15 @@ private val jetpackQuestions = mutableListOf(
     ),
     Question(
         id = 3,
-        questionText = R.string.takeaway,
+        questionText = R.string.farm_size_question,
         answer = PossibleAnswer.InputChoice(""),
         description = R.string.farm_size_description
     ),
 )
 
 private val jetpackSurvey = Survey(
-    title = R.string.which_jetpack_library,
-    questions = jetpackQuestions
+    title = R.string.survey_title,
+    questions = farmerSurveyQuestions
 )
 
 object SurveyRepository {
