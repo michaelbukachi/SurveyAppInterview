@@ -169,7 +169,7 @@ private fun InputQuestion(
     modifier: Modifier = Modifier
 ) {
     var text by remember {
-        mutableStateOf("")
+        mutableStateOf(answer?.answer ?: "")
     }
     OutlinedTextField(
         value = text ,
@@ -187,7 +187,7 @@ private fun NumberInputQuestion(
     modifier: Modifier = Modifier
 ) {
     var text by remember {
-        mutableStateOf("")
+        mutableStateOf(answer?.answer?.toString() ?: "")
     }
     OutlinedTextField(
         value = text ,
