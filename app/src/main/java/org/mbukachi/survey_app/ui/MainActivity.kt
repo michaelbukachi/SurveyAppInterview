@@ -4,13 +4,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.chepsi.survey.app.R
-import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.android.material.navigation.NavigationView
+import org.mbukachi.survey_app.R
 
 class MainActivity : AppCompatActivity() {
 
-    @ExperimentalPagerApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

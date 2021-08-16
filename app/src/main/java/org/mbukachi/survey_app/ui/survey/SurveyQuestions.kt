@@ -1,6 +1,5 @@
 package org.mbukachi.survey_app.ui.survey
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -10,12 +9,9 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.chepsi.survey.app.R
 import org.mbukachi.survey_app.ui.theme.SurveyAppTheme
-import java.util.*
 
 
 @Composable
@@ -43,17 +39,6 @@ private fun QuestionContent(
             Spacer(modifier = Modifier.height(32.dp))
             QuestionTitle(question.questionText)
             Spacer(modifier = Modifier.height(24.dp))
-            if (question.description != null) {
-                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                    Text(
-                        text = stringResource(id = question.description),
-                        style = MaterialTheme.typography.caption,
-                        modifier = Modifier
-                            .fillParentMaxWidth()
-                            .padding(bottom = 18.dp, start = 8.dp, end = 8.dp)
-                    )
-                }
-            }
             when (question.answer) {
                 is PossibleAnswer.SingleChoice -> SingleChoiceQuestion(
                     possibleAnswer = question.answer,
@@ -75,7 +60,7 @@ private fun QuestionContent(
 }
 
 @Composable
-private fun QuestionTitle(@StringRes title: Int) {
+private fun QuestionTitle(title: String) {
     val backgroundColor = if (MaterialTheme.colors.isLight) {
         MaterialTheme.colors.onSurface.copy(alpha = 0.04f)
     } else {
@@ -90,7 +75,7 @@ private fun QuestionTitle(@StringRes title: Int) {
             )
     ) {
         Text(
-            text = stringResource(id = title),
+            text = title,
             style = MaterialTheme.typography.subtitle1,
             modifier = Modifier
                 .fillMaxWidth()
@@ -103,27 +88,22 @@ private fun QuestionTitle(@StringRes title: Int) {
 private fun SingleChoiceQuestion(
     possibleAnswer: PossibleAnswer.SingleChoice,
     answer: Answer.SingleChoice?,
-    onAnswerSelected: (Int) -> Unit,
+    onAnswerSelected: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val options = possibleAnswer.optionsStringRes.associateBy { stringResource(id = it) }
+    val options = possibleAnswer.options.associateBy { it.label }
 
-    val radioOptions = options.keys.toList()
+    val radioOptions = possibleAnswer.options.map { it.label }
 
-    val selected = if (answer != null) {
-        stringResource(id = answer.answer)
-    } else {
-        null
-    }
+    val selected = answer?.answer
 
     val (selectedOption, onOptionSelected) = remember(answer) { mutableStateOf(selected) }
 
     Column(modifier = modifier) {
-        radioOptions.forEach { text ->
+        radioOptions.forEachIndexed { index, text ->
             val onClickHandle = {
                 onOptionSelected(text)
-                options[text]?.let { onAnswerSelected(it) }
-                Unit
+                onAnswerSelected(possibleAnswer.options[index].value)
             }
             val optionSelected = text == selectedOption
 
@@ -196,13 +176,14 @@ private fun InputQuestion(
 @Composable
 fun QuestionPreview() {
     val question = Question(
-        id = 2,
-        questionText = R.string.gender_question,
+        id = 1,
+        questionText = "Select gender",
         answer = PossibleAnswer.SingleChoice(
-            optionsStringRes = listOf(
+            options = listOf(
+                Option(label = "Male", value = "male"),
+                Option(label = "Female", value = "female"),
             )
         ),
-        description = R.string.select_one
     )
     SurveyAppTheme {
         Question(

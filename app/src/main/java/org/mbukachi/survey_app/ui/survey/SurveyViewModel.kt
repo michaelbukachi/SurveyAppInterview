@@ -1,48 +1,64 @@
 package org.mbukachi.survey_app.ui.survey
 
-import android.net.Uri
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
+import org.mbukachi.domain.*
+import org.mbukachi.domain.Question
 
 class SurveyViewModel(
-    private val surveyRepository: SurveyRepository
+    private val surveyRepo: SurveyRepo
 ) : ViewModel() {
 
-    private val _uiState = MutableLiveData<SurveyState>()
-    val uiState: LiveData<SurveyState>
-        get() = _uiState
+    private val mutableUiState = MutableStateFlow<SurveyState>(SurveyState.Loading)
+    val uiState: StateFlow<SurveyState>
+        get() = mutableUiState
 
     private lateinit var surveyInitialState: SurveyState
 
     init {
         viewModelScope.launch {
-            val survey = surveyRepository.getSurvey()
+            surveyRepo.getSurvey().collect {
+                when (val result = it) {
+                    is DataResult.Success -> {
+                        val orderedQuestions = mutableListOf(result.survey.startQuestion)
+                        var currentQuestion: Question? = result.survey.startQuestion
+                        while (currentQuestion != null && !currentQuestion.isLast()) {
+                            currentQuestion = result.survey.getNextQuestion(currentQuestion)
+                            if (currentQuestion != null) {
+                                orderedQuestions.add(currentQuestion)
+                            }
+                        }
 
-            // Create the default questions state based on the survey questions
-            val questions: List<QuestionState> = survey.questions.mapIndexed { index, question ->
-                val showPrevious = index > 0
-                val showDone = index == survey.questions.size - 1
-                QuestionState(
-                    question = question,
-                    questionIndex = index,
-                    totalQuestionsCount = survey.questions.size,
-                    showPrevious = showPrevious,
-                    showDone = showDone
-                )
+                        val questions: List<QuestionState> =
+                            orderedQuestions.mapIndexed { index, question ->
+                                val showPrevious = index > 0
+                                val showDone = index == orderedQuestions.size - 1
+                                QuestionState(
+                                    question = question.toUI(index = index),
+                                    questionIndex = index,
+                                    totalQuestionsCount = orderedQuestions.size,
+                                    showPrevious = showPrevious,
+                                    showDone = showDone
+                                )
+                            }
+
+                        surveyInitialState = SurveyState.Questions(result.survey.id, questions)
+                        mutableUiState.value = surveyInitialState
+                    }
+                }
+
             }
-            surveyInitialState = SurveyState.Questions(survey.title, questions)
-            _uiState.value = surveyInitialState
         }
     }
 
-    fun computeResult(surveyQuestions: SurveyState.Questions) {
-        val answers = surveyQuestions.questionsState.mapNotNull { it.answer }
-        val result = surveyRepository.getSurveyResult(answers)
-        _uiState.value = SurveyState.Result(surveyQuestions.surveyTitle, result)
+    fun submitResponse(surveyQuestions: SurveyState.Questions) {
+        mutableUiState.value = SurveyState.Done(surveyQuestions.surveyId, Response("abc"))
+//        val answers = surveyQuestions.questionsState.mapNotNull { it.answer }
+//        val result = surveyRepository.getSurveyResult(answers)
+//        _uiState.value = SurveyState.Result(surveyQuestions.surveyTitle, result)
     }
 }

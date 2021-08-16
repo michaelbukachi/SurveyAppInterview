@@ -2,7 +2,7 @@ package org.mbukachi.survey_app.ui
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.chepsi.survey.app.R
+import org.mbukachi.survey_app.R
 import java.security.InvalidParameterException
 
 enum class Screen { Welcome, SignUp, SignIn, Survey }

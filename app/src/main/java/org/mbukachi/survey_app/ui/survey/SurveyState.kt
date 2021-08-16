@@ -1,6 +1,5 @@
 package org.mbukachi.survey_app.ui.survey
 
-import androidx.annotation.StringRes
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,14 +19,16 @@ class QuestionState(
 
 sealed class SurveyState {
     data class Questions(
-        @StringRes val surveyTitle: Int,
+        val surveyId: String,
         val questionsState: List<QuestionState>
     ) : SurveyState() {
         var currentQuestionIndex by mutableStateOf(0)
     }
 
-    data class Result(
-        @StringRes val surveyTitle: Int,
-        val surveyResult: SurveyResult
+    data class Done(
+        val surveyId: String,
+        val response: Response
     ) : SurveyState()
+
+    object Loading : SurveyState()
 }

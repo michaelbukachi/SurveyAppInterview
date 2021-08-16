@@ -38,4 +38,7 @@
     <string name="back">Back</string>
     <string name="close">Close</string>
 
+    <string name="thank_you">Thank you</string>
+    <string name="answers_submitted">You answers have been submitted successfully.</string>
+
 </resources>
