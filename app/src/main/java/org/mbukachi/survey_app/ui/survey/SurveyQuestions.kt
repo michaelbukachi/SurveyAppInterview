@@ -109,10 +109,10 @@ private fun SingleChoiceQuestion(
     Column(modifier = modifier) {
         radioOptions.forEachIndexed { index, text ->
             val onClickHandle = {
-                onOptionSelected(text)
+                onOptionSelected(possibleAnswer.options[index].value)
                 onAnswerSelected(possibleAnswer.options[index].value)
             }
-            val optionSelected = text == selectedOption
+            val optionSelected = possibleAnswer.options[index].value == selectedOption
 
             val answerBorderColor = if (optionSelected) {
                 MaterialTheme.colors.primary.copy(alpha = 0.5f)

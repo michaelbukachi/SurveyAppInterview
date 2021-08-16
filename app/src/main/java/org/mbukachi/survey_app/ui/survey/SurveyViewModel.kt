@@ -72,7 +72,6 @@ class SurveyViewModel(
                     )
                 }.filter { it.value.isNotBlank() }
             )
-            println(response)
             surveyRepo.saveResponse(response)
             mutableUiState.value = SurveyState.Done
         }
