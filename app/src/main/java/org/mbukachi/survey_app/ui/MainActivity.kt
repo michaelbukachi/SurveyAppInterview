@@ -16,15 +16,18 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.work.Constraints
-import androidx.work.NetworkType
+import androidx.lifecycle.lifecycleScope
+import androidx.work.*
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
+import org.mbukachi.survey_app.SubmitResponsesWorker
 import org.mbukachi.survey_app.ui.theme.SurveyAppTheme
+import java.util.concurrent.TimeUnit
 
 class MainActivity : ComponentActivity() {
 
@@ -38,15 +41,9 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        createSubmitSurveyWorker()
     }
 
-    private fun fetchSavedResponses() {
-//        mainViewModel.saveSurveyResponses.observe(this) {
-//            if (it.isNotEmpty()) {
-//                createSubmitSurveyWorker(it)
-//            }
-//        }
-    }
 
     private fun attachObservers() {
 //        mainViewModel.survey.observe(this, { fetchedSurvey ->
@@ -69,24 +66,26 @@ class MainActivity : ComponentActivity() {
 //        }
     }
 
-    private fun createSubmitSurveyWorker() {
-//        val imageWorker = PeriodicWorkRequestBuilder<SubmitSurveyWorker>(15, TimeUnit.MINUTES)
-//            .setConstraints(constraints)
-//            .addTag("submitSurveyWork")
-//            //.setInputData(workDataOf("survey" to answeredSurveys.toString()))
-//            .setInputData(workDataOf("survey" to Gson().toJson(answeredSurveys)))
-//            .build()
-//        workManager.enqueueUniquePeriodicWork(
-//            "periodicSubmitSurvey",
-//            ExistingPeriodicWorkPolicy.KEEP,
-//            imageWorker
-//        )
+    private fun createSubmitSurveyWorker() = lifecycleScope.launch {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+        val workerRequest = PeriodicWorkRequestBuilder<SubmitResponsesWorker>(15, TimeUnit.MINUTES)
+            .setConstraints(constraints)
+            .addTag(SubmitResponsesWorker::class.simpleName!!)
+            .build()
 
+        val workManager = WorkManager.getInstance(this@MainActivity)
+        val infoList =
+            workManager.getWorkInfosByTag(SubmitResponsesWorker::class.simpleName!!).await()
+        if (infoList.isEmpty()) {
+            workManager.enqueueUniquePeriodicWork(
+                SubmitResponsesWorker::class.simpleName!!,
+                ExistingPeriodicWorkPolicy.KEEP,
+                workerRequest
+            )
+        }
     }
-
-    private val constraints = Constraints.Builder()
-        .setRequiredNetworkType(NetworkType.CONNECTED)
-        .build()
 
     fun swipeNext() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

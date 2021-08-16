@@ -58,3 +58,27 @@ data class StringEntity(
     val value: String,
     val surveyId: String
 )
+
+@Entity(tableName = "responses")
+data class ResponseEntity(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val surveyId: String,
+    val submitted: Boolean = false
+)
+
+data class ResponseEntityWithAnswers(
+    @Embedded val response: ResponseEntity,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "responseId"
+    )
+    val answers: List<AnswerEntity> = emptyList(),
+)
+
+@Entity
+data class AnswerEntity(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val questionId: String,
+    val responseId: String,
+    val value: String
+)

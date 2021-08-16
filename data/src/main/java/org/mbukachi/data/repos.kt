@@ -73,4 +73,21 @@ class SurveyRepoImpl(private val api: SurveyApi, private val surveyDao: SurveyDa
         surveyDao.insertOptions(options = options.toTypedArray())
     }
 
+    override suspend fun submitResponses() {
+        val responses = surveyDao.getResponsesNotSubmitted()
+        val successfulSubmissions = mutableListOf<ResponseEntity>()
+        responses.forEach {
+            val response = api.submitResponse(it.toPayload())
+            if (response.isSuccessful) {
+                successfulSubmissions.add(it.response.copy(submitted = true))
+            } else {
+                println("Failed to submit Survey Response ${it.response.id}")
+            }
+        }
+
+        if (successfulSubmissions.isNotEmpty()) {
+            surveyDao.updateResponses(responses = successfulSubmissions.toTypedArray())
+        }
+    }
+
 }

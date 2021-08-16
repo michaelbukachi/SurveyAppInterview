@@ -1,4 +1,4 @@
-package com.chepsi.survey.app
+package org.mbukachi.survey_app
 
 import android.content.Context
 import android.util.Log

@@ -1,9 +1,6 @@
 package org.mbukachi.data.db
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -26,4 +23,11 @@ interface SurveyDao {
     @Transaction
     @Query("SELECT * FROM surveys")
     fun getSurveys(): Flow<List<SurveyEntityWithQuestions>>
+
+    @Transaction
+    @Query("SELECT * FROM responses WHERE submitted = 0")
+    suspend fun getResponsesNotSubmitted(): List<ResponseEntityWithAnswers>
+
+    @Update
+    suspend fun updateResponses(vararg responses: ResponseEntity)
 }

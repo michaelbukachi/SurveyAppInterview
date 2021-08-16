@@ -1,6 +1,8 @@
 package org.mbukachi.data
 
 import org.mbukachi.data.db.*
+import org.mbukachi.data.network.AnswerPayload
+import org.mbukachi.data.network.ResponsePayload
 import org.mbukachi.domain.*
 import org.mbukachi.domain.AnswerType
 import org.mbukachi.domain.QuestionType
@@ -36,3 +38,14 @@ fun SurveyEntityWithQuestions.toSurvey(lang: String): Survey {
         questions = questions.map { it.toQuestion(lang, strings) }
     )
 }
+
+fun AnswerEntity.toPayload() = AnswerPayload(
+    questionId = questionId,
+    answer = value
+)
+
+fun ResponseEntityWithAnswers.toPayload() = ResponsePayload(
+    id = response.id,
+    surveyId = response.surveyId,
+    answers = answers.map { it.toPayload() }
+)
