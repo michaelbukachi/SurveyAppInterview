@@ -36,11 +36,11 @@ import kotlin.test.assertNotEquals
 @Config(application = TestApp::class, sdk = [30])
 class SurveyRepoImplTest : KoinTest {
 
-    val surveyApi by inject<SurveyApi>()
-    val surveyDao by inject<SurveyDao>()
-    val db by inject<SurveyAppDatabase>()
+    private val surveyApi by inject<SurveyApi>()
+    private val surveyDao by inject<SurveyDao>()
+    private val db by inject<SurveyAppDatabase>()
 
-    val testAppModule = module {
+    private val testAppModule = module {
         single {
             RuntimeEnvironment.getApplication().applicationContext
         }

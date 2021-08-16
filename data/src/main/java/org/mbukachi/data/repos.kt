@@ -11,7 +11,6 @@ import org.mbukachi.domain.DataResult
 import org.mbukachi.domain.Response
 import org.mbukachi.domain.SurveyRepo
 
-
 class SurveyRepoImpl(private val api: SurveyApi, private val surveyDao: SurveyDao) : SurveyRepo {
 
     override fun getSurvey(lang: String): Flow<DataResult> = flow {
