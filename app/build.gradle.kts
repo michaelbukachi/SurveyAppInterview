@@ -72,6 +72,9 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-livedata:1.1.0-alpha01")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07")
 
+    implementation("androidx.navigation:navigation-ui-ktx:2.3.4")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.3.4")
+
     implementation("io.insert-koin:koin-android:${Versions.koinVersion}")
     implementation("io.insert-koin:koin-androidx-workmanager:${Versions.koinVersion}")
     implementation("io.insert-koin:koin-androidx-compose:${Versions.koinVersion}")

@@ -21,6 +21,9 @@ class MainViewModel(
                 DataResult.Loading -> {
                     UIState.Loading
                 }
+                else -> {
+
+                }
             }
         }
     }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -17,30 +18,38 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import androidx.work.*
+import com.chepsi.survey.app.R
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 import org.mbukachi.survey_app.SubmitResponsesWorker
 import org.mbukachi.survey_app.ui.theme.SurveyAppTheme
 import java.util.concurrent.TimeUnit
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 
     @ExperimentalPagerApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            SurveyAppTheme {
-                Surface(color = MaterialTheme.colors.background) {
-                    MainScreen()
-                }
-            }
-        }
+        setContentView(R.layout.activity_main)
+        val navView: NavigationView = findViewById(R.id.nav_view)
+        val navController = findNavController(R.id.nav_host_fragment)
+        navView.setupWithNavController(navController)
+//        setContent {
+//            SurveyAppTheme {
+//                Surface(color = MaterialTheme.colors.background) {
+//                    MainScreen()
+//                }
+//            }
+//        }
         createSubmitSurveyWorker()
     }
 
@@ -104,27 +113,27 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen() {
     val mainViewModel = getViewModel<MainViewModel>()
-    val uiState: UIState by mainViewModel.surveyState.collectAsState(initial = UIState.Loading)
-    val pagerState = rememberPagerState(pageCount = 10)
+    //val uiState: UIState by mainViewModel.surveyState.collectAsState(initial = UIState.Loading)
+    //val pagerState = rememberPagerState(pageCount = 10)
 
-    SwipeRefresh(
-        state = rememberSwipeRefreshState(uiState is UIState.Loading),
-        onRefresh = {}
-    ) {
-        Column(
-            modifier = Modifier.verticalScroll(rememberScrollState())
-        ) {
-            if (uiState is UIState.SurveyLoaded) {
-                HorizontalPager(state = pagerState) {
-
-                }
-            }
-
-            if (uiState is UIState.Error) {
-                Text((uiState as UIState.Error).message)
-            }
-        }
-    }
+//    SwipeRefresh(
+//        state = rememberSwipeRefreshState(uiState is UIState.Loading),
+//        onRefresh = {}
+//    ) {
+//        Column(
+//            modifier = Modifier.verticalScroll(rememberScrollState())
+//        ) {
+//            if (uiState is UIState.SurveyLoaded) {
+//                HorizontalPager(state = pagerState) {
+//
+//                }
+//            }
+//
+//            if (uiState is UIState.Error) {
+//                Text((uiState as UIState.Error).message)
+//            }
+//        }
+//    }
 }
 
 @ExperimentalPagerApi
@@ -132,6 +141,6 @@ fun MainScreen() {
 @Composable
 fun MainScreenPreview() {
     SurveyAppTheme {
-        MainScreen()
+//        MainScreen()
     }
 }
