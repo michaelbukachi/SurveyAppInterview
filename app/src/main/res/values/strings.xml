@@ -16,61 +16,27 @@
     <string name="select_date">Select date.</string>
 
     <!-- question 1-->
-    <string name="in_my_free_time">In my free time I like to …</string>
-    <string name="read">Read</string>
-    <string name="work_out">Work out</string>
-    <string name="draw">Draw</string>
-    <string name="play_games">Play video games</string>
-    <string name="dance">Dance</string>
-    <string name="watch_movies">Watch movies</string>
+    <string name="name_question">What is the name of the farmer?</string>
+    <string name="name_description">Please enter your name</string>
 
     <!-- question 2 -->
-    <string name="pick_superhero">Pick a Compose comic character</string>
-    <string name="spark">Spark</string>
-    <string name="lenz">Lenz</string>
-    <string name="bugchaos">Bug of Chaos</string>
-    <string name="frag">Frag</string>
+    <string name="pick_superhero">What is the gender of the farmer</string>
+    <string name="option_one">Male</string>
+    <string name="option_two">Female</string>
+    <string name="option_three">Other</string>
 
     <!-- question 3  -->
-    <string name="takeaway">When was the last time you ordered takeaway because you couldn\'t be bothered to cook?</string>
+    <string name="takeaway">What is the size of the farm in hectares?</string>
+    <string name="farm_size_description">Please enter size of your farm</string>
     <string name="pick_date">Pick a date</string>
 
-    <!-- question 4-->
-    <string name="selfies">How do you feel about selfies 🤳?</string>
-
-    <!-- question 5-->
-    <string name="selfie_skills">Show off your selfie skills!</string>
-    <string name="add_photo">ADD PHOTO</string>
-    <string name="retake_photo">RETAKE PHOTO</string>
-    <string name="selfie_permissions">Taking a selfie requires this app to have access to your device storage.</string>
-
-    <!-- question 6-->
-    <string name="favourite_movie">What\'s your favourite movie?</string>
-    <string name="star_trek">Star Trek</string>
-    <string name="social_network">The social network</string>
-    <string name="back_to_future">Back to the future</string>
-    <string name="outbreak">Outbreak</string>
-
     <string name="survey_result">Congratulations, you are %s</string>
-    <string name="survey_result_description">You are a curious developer, always willing to try
-        something new. You want to stay up to date with the trends to Compose is your middle name</string>
-    <string name="strongly_dislike">Strongly\nDislike</string>
-    <string name="strongly_like">Strongly\nLike</string>
-    <string name="neutral">Neutral</string>
-
-    <!-- Permissions-->
-    <string name="permissions_rationale">This question requires some permissions. Please grant them.</string>
-    <string name="permissions_denied">Permissions were denied. Unfortunately, this question is not available at the moment. Please continue with the survey or grant access to the permissions on the Settings screen.</string>
-    <string name="request_permissions">OK!</string>
-    <string name="do_not_ask_permissions">Nope 🙅</string>
-    <string name="open_settings">Open Settings</string>
-
+    <string name="survey_result_description">You have finished the survey. Thank you for finishing the
+    survey. </string>
     <string name="dismiss">DISMISS</string>
     <string name="previous">PREVIOUS</string>
     <string name="done">DONE</string>
     <string name="back">Back</string>
     <string name="close">Close</string>
-    <string name="show_password">Show password</string>
-    <string name="hide_password">Hide password</string>
 
 </resources>
