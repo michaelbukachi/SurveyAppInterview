@@ -101,8 +101,6 @@ private fun SingleChoiceQuestion(
     onAnswerSelected: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val options = possibleAnswer.options.associateBy { it.label }
-
     val radioOptions = possibleAnswer.options.map { it.label }
 
     val selected = answer?.answer

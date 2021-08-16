@@ -4,8 +4,7 @@ import androidx.room.Room
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockWebServer
-import org.hamcrest.CoreMatchers.allOf
-import org.hamcrest.CoreMatchers.instanceOf
+import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
 import org.junit.Before
@@ -31,6 +30,7 @@ import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowLog
 import java.net.HttpURLConnection.HTTP_OK
 import kotlin.test.assertNotEquals
+import kotlin.test.assertTrue
 
 @RunWith(RobolectricTestRunner::class)
 @Config(application = TestApp::class, sdk = [30])
@@ -97,9 +97,10 @@ class SurveyRepoImplTest : KoinTest {
                     Answer(questionId = "test", value = "test")
                 )
             )
-            val resultFlow = surveyRepo.saveResponse(response)
-            val result = resultFlow.first()
-            assertThat(result, allOf(instanceOf(DataResult.ResponseSaved::class.java)))
+            surveyRepo.saveResponse(response)
+            val responses = surveyDao.getResponsesNotSubmitted()
+            assertTrue(responses.isNotEmpty())
+            assertThat(responses[0].answers[0].value, `is`("test"))
         }
     }
 
@@ -115,7 +116,7 @@ class SurveyRepoImplTest : KoinTest {
                 Answer(questionId = "q_size_of_farm", value = "test")
             )
         )
-        surveyRepo.saveResponse(response).first()
+        surveyRepo.saveResponse(response)
         val responseNotSubmitted = surveyDao.getResponsesNotSubmitted()
         surveyRepo.submitResponses()
         assertNotEquals(responseNotSubmitted.size, surveyDao.getResponsesNotSubmitted().size)
