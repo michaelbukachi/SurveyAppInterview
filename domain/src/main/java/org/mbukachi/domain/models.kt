@@ -44,6 +44,5 @@ data class Answer(
 sealed class DataResult {
     data class Success(val survey: Survey) : DataResult()
     data class Error(val message: String) : DataResult()
-    object ResponseSaved : DataResult()
     object Loading : DataResult()
 }

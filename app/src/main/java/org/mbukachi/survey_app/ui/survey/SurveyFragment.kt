@@ -8,7 +8,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.mbukachi.survey_app.R
 import org.mbukachi.survey_app.ui.survey.composables.LoadingScreen
 import org.mbukachi.survey_app.ui.survey.composables.SurveyDoneScreen
 import org.mbukachi.survey_app.ui.survey.composables.SurveyQuestionsScreen

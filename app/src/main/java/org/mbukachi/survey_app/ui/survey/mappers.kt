@@ -3,13 +3,13 @@ package org.mbukachi.survey_app.ui.survey
 import org.mbukachi.domain.Question
 import org.mbukachi.domain.QuestionType
 
-fun Question.toUI(index: Int) = Question(
-    id = index,
+fun Question.toUI() = QuestionUI(
+    id = id,
     questionText = questionText,
     answer = when (questionType) {
         QuestionType.SELECT_ONE -> {
             PossibleAnswer.SingleChoice(options.map {
-                Option(label = it.key, value = it.value)
+                OptionUI(label = it.key, value = it.value)
             })
         }
         QuestionType.FREE_TEXT -> {

@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.mbukachi.domain.*
-import org.mbukachi.domain.Question
+import org.mbukachi.domain.Response
 
 class SurveyViewModel(
     private val surveyRepo: SurveyRepo
@@ -38,7 +38,7 @@ class SurveyViewModel(
                                 val showPrevious = index > 0
                                 val showDone = index == orderedQuestions.size - 1
                                 QuestionState(
-                                    question = question.toUI(index = index),
+                                    question = question.toUI(),
                                     questionIndex = index,
                                     totalQuestionsCount = orderedQuestions.size,
                                     showPrevious = showPrevious,
@@ -56,10 +56,26 @@ class SurveyViewModel(
     }
 
     fun submitResponse(surveyQuestions: SurveyState.Questions) {
-        mutableUiState.value = SurveyState.Done(surveyQuestions.surveyId, Response("abc"))
-//        val answers = surveyQuestions.questionsState.mapNotNull { it.answer }
-//        val result = surveyRepository.getSurveyResult(answers)
-//        _uiState.value = SurveyState.Result(surveyQuestions.surveyTitle, result)
+        mutableUiState.value = SurveyState.Loading
+        viewModelScope.launch {
+            val response = Response(
+                surveyId = surveyQuestions.surveyId,
+                answers = surveyQuestions.questionsState.map {
+                    Answer(
+                        questionId = it.question.id,
+                        value = when (val answer = it.answer) {
+                            is AnswerUI.Input -> answer.answer
+                            is AnswerUI.SingleChoice -> answer.answer
+                            is AnswerUI.NumberInput -> answer.answer.toString()
+                            null -> ""
+                        }
+                    )
+                }.filter { it.value.isNotBlank() }
+            )
+            println(response)
+            surveyRepo.saveResponse(response)
+            mutableUiState.value = SurveyState.Done
+        }
     }
 
     fun resetState() {

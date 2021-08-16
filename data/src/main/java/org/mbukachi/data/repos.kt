@@ -74,11 +74,10 @@ class SurveyRepoImpl(private val api: SurveyApi, private val surveyDao: SurveyDa
         surveyDao.insertOptions(options = options.toTypedArray())
     }
 
-    override fun saveResponse(response: Response): Flow<DataResult> = flow {
+    override suspend fun saveResponse(response: Response) {
         val responseId = surveyDao.insertResponse(response.toEntity())
         val answers = response.answers.map { it.toEntity().copy(responseId = responseId) }
         surveyDao.insertAnswers(answers = answers.toTypedArray())
-        emit(DataResult.ResponseSaved)
     }
 
     override suspend fun submitResponses() {

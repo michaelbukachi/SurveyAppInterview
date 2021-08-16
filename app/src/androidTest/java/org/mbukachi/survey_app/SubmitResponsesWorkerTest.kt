@@ -54,8 +54,7 @@ class FakeSurveyRepo : SurveyRepo {
     override suspend fun submitResponses() {
     }
 
-    override fun saveResponse(response: Response): Flow<DataResult> {
-        return emptyFlow()
+    override suspend fun saveResponse(response: Response) {
     }
 
 }

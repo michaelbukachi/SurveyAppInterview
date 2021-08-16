@@ -18,9 +18,9 @@ import org.mbukachi.survey_app.ui.theme.SurveyAppTheme
 
 @Composable
 fun Question(
-    question: Question,
-    answer: Answer<*>?,
-    onAnswer: (Answer<*>) -> Unit,
+    question: QuestionUI,
+    answer: AnswerUI<*>?,
+    onAnswer: (AnswerUI<*>) -> Unit,
     modifier: Modifier = Modifier
 ) {
     QuestionContent(question, answer, onAnswer, modifier)
@@ -28,9 +28,9 @@ fun Question(
 
 @Composable
 private fun QuestionContent(
-    question: Question,
-    answer: Answer<*>?,
-    onAnswer: (Answer<*>) -> Unit,
+    question: QuestionUI,
+    answer: AnswerUI<*>?,
+    onAnswer: (AnswerUI<*>) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -44,23 +44,23 @@ private fun QuestionContent(
             when (question.answer) {
                 is PossibleAnswer.SingleChoice -> SingleChoiceQuestion(
                     possibleAnswer = question.answer,
-                    answer = answer as Answer.SingleChoice?,
-                    onAnswerSelected = { answer -> onAnswer(Answer.SingleChoice(answer)) },
+                    answer = answer as AnswerUI.SingleChoice?,
+                    onAnswerSelected = { answer -> onAnswer(AnswerUI.SingleChoice(answer)) },
                     modifier = Modifier.fillParentMaxWidth()
                 )
                 is PossibleAnswer.InputChoice -> InputQuestion(
                     possibleAnswer = question.answer,
-                    answer = answer as Answer.Input?,
+                    answer = answer as AnswerUI.Input?,
                     onAction = { answer ->
-                        onAnswer(Answer.Input(answer = answer))
+                        onAnswer(AnswerUI.Input(answer = answer))
 
                     }
                 )
                 is PossibleAnswer.NumberInputChoice -> NumberInputQuestion(
                     possibleAnswer = question.answer,
-                    answer = answer as Answer.NumberInput? ,
+                    answer = answer as AnswerUI.NumberInput?,
                     onAction = { answer ->
-                        onAnswer(Answer.NumberInput(answer = answer))
+                        onAnswer(AnswerUI.NumberInput(answer = answer))
 
                     }
                 )
@@ -97,7 +97,7 @@ private fun QuestionTitle(title: String) {
 @Composable
 private fun SingleChoiceQuestion(
     possibleAnswer: PossibleAnswer.SingleChoice,
-    answer: Answer.SingleChoice?,
+    answer: AnswerUI.SingleChoice?,
     onAnswerSelected: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -167,7 +167,7 @@ private fun SingleChoiceQuestion(
 @Composable
 private fun InputQuestion(
     possibleAnswer: PossibleAnswer.InputChoice,
-    answer: Answer.Input?,
+    answer: AnswerUI.Input?,
     onAction: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -185,7 +185,7 @@ private fun InputQuestion(
 @Composable
 private fun NumberInputQuestion(
     possibleAnswer: PossibleAnswer.NumberInputChoice,
-    answer: Answer.NumberInput?,
+    answer: AnswerUI.NumberInput?,
     onAction: (Float) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -207,13 +207,13 @@ private fun NumberInputQuestion(
 @Preview
 @Composable
 fun QuestionPreview() {
-    val question = Question(
-        id = 1,
+    val question = QuestionUI(
+        id = "abc",
         questionText = "Select gender",
         answer = PossibleAnswer.SingleChoice(
             options = listOf(
-                Option(label = "Male", value = "male"),
-                Option(label = "Female", value = "female"),
+                OptionUI(label = "Male", value = "male"),
+                OptionUI(label = "Female", value = "female"),
             )
         ),
     )
