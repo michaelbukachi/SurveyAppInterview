@@ -11,12 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import org.mbukachi.survey_app.R
-import org.mbukachi.survey_app.ui.survey.SurveyState
 import org.mbukachi.survey_app.ui.utils.supportWideScreen
 
 @Composable
 fun SurveyDoneScreen(
-    result: SurveyState.Done,
     onDonePressed: () -> Unit
 ) {
     Surface(modifier = Modifier.supportWideScreen()) {
