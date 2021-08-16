@@ -15,7 +15,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.mbukachi.survey_app.ui.theme.SurveyAppTheme
 
-
 @Composable
 fun Question(
     question: QuestionUI,

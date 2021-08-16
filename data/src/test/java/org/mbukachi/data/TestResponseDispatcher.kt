@@ -7,6 +7,7 @@ import okio.source
 import java.nio.charset.StandardCharsets
 
 internal fun MockWebServer.enqueueResponse(fileName: String, code: Int) {
+
     val inputStream = javaClass.classLoader?.getResourceAsStream(fileName)
 
     val source = inputStream?.let { inputStream.source().buffer() }

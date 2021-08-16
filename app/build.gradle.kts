@@ -51,9 +51,11 @@ android {
 }
 
 dependencies {
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+
     implementation(project(":domain"))
     implementation(project(":data"))
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.21")
     implementation("androidx.core:core-ktx:1.6.0")
     implementation("androidx.appcompat:appcompat:1.3.1")
@@ -72,8 +74,8 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-livedata:1.1.0-alpha01")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07")
 
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.4")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.4")
+    implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
 
     implementation("io.insert-koin:koin-android:${Versions.koinVersion}")
     implementation("io.insert-koin:koin-androidx-workmanager:${Versions.koinVersion}")
@@ -85,20 +87,19 @@ dependencies {
 
     implementation("com.github.kirich1409:viewbindingpropertydelegate:1.4.4")
 
-
     implementation("androidx.work:work-runtime-ktx:2.5.0")
 
-
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.2")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
+
+    androidTestImplementation("androidx.test.ext:junit:1.1.3")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
     androidTestImplementation("androidx.work:work-testing:2.5.0")
     androidTestImplementation("androidx.arch.core:core-testing:2.1.0")
-    androidTestImplementation("androidx.test.ext:junit:1.1.2")
-    androidTestImplementation("androidx.test:rules:1.3.0")
-    androidTestImplementation("androidx.test:runner:1.3.0")
+    androidTestImplementation("androidx.test.ext:junit:1.1.3")
+    androidTestImplementation("androidx.test:rules:1.4.0")
+    androidTestImplementation("androidx.test:runner:1.4.0")
     androidTestImplementation("io.insert-koin:koin-test:${Versions.koinVersion}")
     androidTestImplementation("io.mockk:mockk-android:1.11.0")
-    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.3")
-    androidTestImplementation("app.cash.turbine:turbine:0.4.1")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1")
+    androidTestImplementation("app.cash.turbine:turbine:0.6.0")
 }

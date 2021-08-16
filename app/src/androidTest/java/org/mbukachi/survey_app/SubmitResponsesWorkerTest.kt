@@ -21,6 +21,7 @@ import org.mbukachi.domain.SurveyRepo
 
 @RunWith(AndroidJUnit4::class)
 class SubmitResponsesWorkerTest : KoinTest {
+
     @get:Rule
     val workManagerTestRule = WorkManagerTestRule()
 
