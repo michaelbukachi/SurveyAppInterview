@@ -34,13 +34,16 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     testOptions {
         unitTests.isReturnDefaultValues = true
         unitTests.isIncludeAndroidResources = true
@@ -50,6 +53,7 @@ android {
 dependencies {
 
     implementation(project(":domain"))
+
     implementation("androidx.core:core-ktx:1.6.0")
     implementation("androidx.appcompat:appcompat:1.3.1")
     implementation("io.insert-koin:koin-core:${Versions.koinVersion}")
@@ -65,7 +69,6 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutinesVersion}")
 
-
     testImplementation("junit:junit:4.13.2")
     testImplementation("androidx.room:room-testing:${Versions.roomVersion}")
     testImplementation("com.squareup.okhttp3:mockwebserver")
@@ -73,7 +76,6 @@ dependencies {
     testImplementation("io.insert-koin:koin-test:${Versions.koinVersion}")
     testImplementation("io.insert-koin:koin-test-junit4:${Versions.koinVersion}")
     testImplementation("io.mockk:mockk:1.12.0")
-
 
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")

@@ -34,7 +34,6 @@ fun SurveyDone(modifier: Modifier = Modifier) {
     }
 }
 
-
 @Composable
 @Preview(showBackground = true)
 fun SurveyDonePreview() {

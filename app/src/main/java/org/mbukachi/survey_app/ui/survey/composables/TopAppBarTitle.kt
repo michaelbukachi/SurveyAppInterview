@@ -37,7 +37,6 @@ fun TopAppBarTitle(
     )
 }
 
-
 @Composable
 @Preview(showBackground = true)
 fun TopAppBarTitlePreview() {
