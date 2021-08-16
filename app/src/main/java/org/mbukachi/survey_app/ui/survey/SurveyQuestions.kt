@@ -130,7 +130,9 @@ private fun SingleChoiceQuestion(
                     width = 1.dp,
                     color = answerBorderColor
                 ),
-                modifier = Modifier.padding(vertical = 8.dp)
+                modifier = Modifier
+                    .padding(vertical = 8.dp)
+
             ) {
                 Row(
                     modifier = Modifier
@@ -165,8 +167,7 @@ private fun SingleChoiceQuestion(
 private fun InputQuestion(
     possibleAnswer: PossibleAnswer.InputChoice,
     answer: AnswerUI.Input?,
-    onAction: (String) -> Unit,
-    modifier: Modifier = Modifier
+    onAction: (String) -> Unit
 ) {
     var text by remember {
         mutableStateOf(answer?.answer ?: "")
@@ -183,8 +184,7 @@ private fun InputQuestion(
 private fun NumberInputQuestion(
     possibleAnswer: PossibleAnswer.NumberInputChoice,
     answer: AnswerUI.NumberInput?,
-    onAction: (Float) -> Unit,
-    modifier: Modifier = Modifier
+    onAction: (Float) -> Unit
 ) {
     var text by remember {
         mutableStateOf(answer?.answer?.toString() ?: "")

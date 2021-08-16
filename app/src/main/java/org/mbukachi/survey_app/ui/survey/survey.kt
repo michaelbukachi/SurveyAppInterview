@@ -1,14 +1,5 @@
 package org.mbukachi.survey_app.ui.survey
 
-data class Response(
-    val id: String
-)
-
-data class SurveyUI(
-    val id: String,
-    val questions: List<QuestionUI>
-)
-
 data class QuestionUI(
     val id: String,
     val questionText: String,
