@@ -49,3 +49,13 @@ fun ResponseEntityWithAnswers.toPayload() = ResponsePayload(
     surveyId = response.surveyId,
     answers = answers.map { it.toPayload() }
 )
+
+fun Answer.toEntity() = AnswerEntity(
+    questionId = questionId,
+    value = value,
+    responseId = 0
+)
+
+fun Response.toEntity() = ResponseEntity(
+    surveyId = surveyId,
+)

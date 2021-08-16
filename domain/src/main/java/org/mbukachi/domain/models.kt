@@ -31,8 +31,19 @@ data class Survey(
     val questions: List<Question> = emptyList()
 )
 
+data class Response(
+    val surveyId: String,
+    val answers: List<Answer>
+)
+
+data class Answer(
+    val questionId: String,
+    val value: String
+)
+
 sealed class DataResult {
     data class Success(val survey: Survey) : DataResult()
     data class Error(val message: String) : DataResult()
+    object ResponseSaved : DataResult()
     object Loading : DataResult()
 }

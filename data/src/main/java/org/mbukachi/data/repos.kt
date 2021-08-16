@@ -8,6 +8,7 @@ import kotlinx.serialization.json.jsonPrimitive
 import org.mbukachi.data.db.*
 import org.mbukachi.data.network.SurveyApi
 import org.mbukachi.domain.DataResult
+import org.mbukachi.domain.Response
 import org.mbukachi.domain.SurveyRepo
 
 
@@ -71,6 +72,13 @@ class SurveyRepoImpl(private val api: SurveyApi, private val surveyDao: SurveyDa
             }
         }
         surveyDao.insertOptions(options = options.toTypedArray())
+    }
+
+    override fun saveResponse(response: Response): Flow<DataResult> = flow {
+        val responseId = surveyDao.insertResponse(response.toEntity())
+        val answers = response.answers.map { it.toEntity().copy(responseId = responseId) }
+        surveyDao.insertAnswers(answers = answers.toTypedArray())
+        emit(DataResult.ResponseSaved)
     }
 
     override suspend fun submitResponses() {

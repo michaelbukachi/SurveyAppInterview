@@ -16,6 +16,7 @@ import org.junit.runner.RunWith
 import org.koin.test.KoinTest
 import org.koin.test.mock.declare
 import org.mbukachi.domain.DataResult
+import org.mbukachi.domain.Response
 import org.mbukachi.domain.SurveyRepo
 
 @RunWith(AndroidJUnit4::class)
@@ -51,6 +52,10 @@ class FakeSurveyRepo : SurveyRepo {
     }
 
     override suspend fun submitResponses() {
+    }
+
+    override fun saveResponse(response: Response): Flow<DataResult> {
+        return emptyFlow()
     }
 
 }

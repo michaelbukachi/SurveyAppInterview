@@ -79,6 +79,6 @@ data class ResponseEntityWithAnswers(
 data class AnswerEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val questionId: String,
-    val responseId: String,
+    val responseId: Long,
     val value: String
 )

@@ -17,6 +17,12 @@ interface SurveyDao {
     @Insert
     suspend fun insertOptions(vararg options: OptionEntity)
 
+    @Insert
+    suspend fun insertResponse(response: ResponseEntity): Long
+
+    @Insert
+    suspend fun insertAnswers(vararg answers: AnswerEntity)
+
     @Query("SELECT EXISTS (SELECT 1 FROM surveys)")
     suspend fun exists(): Boolean
 

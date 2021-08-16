@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "9b58818349cec559e9a30786c7970a38",
+    "identityHash": "2a114100003600ff2eb7891c7831e7a6",
     "entities": [
       {
         "tableName": "surveys",
@@ -196,7 +196,7 @@
       },
       {
         "tableName": "AnswerEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `questionId` TEXT NOT NULL, `responseId` TEXT NOT NULL, `value` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `questionId` TEXT NOT NULL, `responseId` INTEGER NOT NULL, `value` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -213,7 +213,7 @@
           {
             "fieldPath": "responseId",
             "columnName": "responseId",
-            "affinity": "TEXT",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -236,7 +236,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9b58818349cec559e9a30786c7970a38')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2a114100003600ff2eb7891c7831e7a6')"
     ]
   }
 }

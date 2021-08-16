@@ -22,7 +22,9 @@ import org.koin.test.mock.declare
 import org.mbukachi.data.db.SurveyAppDatabase
 import org.mbukachi.data.db.SurveyDao
 import org.mbukachi.data.network.SurveyApi
+import org.mbukachi.domain.Answer
 import org.mbukachi.domain.DataResult
+import org.mbukachi.domain.Response
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
@@ -34,6 +36,7 @@ class SurveyRepoImplTest : KoinTest {
 
     val surveyApi by inject<SurveyApi>()
     val surveyDao by inject<SurveyDao>()
+    val db by inject<SurveyAppDatabase>()
 
     val testAppModule = module {
         single {
@@ -70,6 +73,7 @@ class SurveyRepoImplTest : KoinTest {
 
     @After
     fun tearDown() {
+        db.close()
         mockWebServer.shutdown()
     }
 
@@ -79,6 +83,21 @@ class SurveyRepoImplTest : KoinTest {
             val surveyFlow = surveyRepo.getSurvey()
             val result = surveyFlow.first()
             assertThat(result, allOf(instanceOf(DataResult.Success::class.java)))
+        }
+    }
+
+    @Test
+    fun `save response in db`() {
+        runBlocking {
+            val response = Response(
+                surveyId = "test",
+                answers = listOf(
+                    Answer(questionId = "test", value = "test")
+                )
+            )
+            val resultFlow = surveyRepo.saveResponse(response)
+            val result = resultFlow.first()
+            assertThat(result, allOf(instanceOf(DataResult.ResponseSaved::class.java)))
         }
     }
 }
