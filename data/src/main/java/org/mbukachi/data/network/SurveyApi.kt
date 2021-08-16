@@ -2,6 +2,7 @@ package org.mbukachi.data.network
 
 import kotlinx.serialization.json.JsonObject
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
@@ -13,5 +14,5 @@ interface SurveyApi {
 
     @Headers("Content-Type: application/json")
     @POST("dummy")
-    suspend fun submitResponse(payload: ResponsePayload): Response<Status>
+    suspend fun submitResponse(@Body payload: ResponsePayload): Response<Status>
 }

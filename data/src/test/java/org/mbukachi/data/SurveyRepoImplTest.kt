@@ -29,6 +29,8 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowLog
+import java.net.HttpURLConnection.HTTP_OK
+import kotlin.test.assertNotEquals
 
 @RunWith(RobolectricTestRunner::class)
 @Config(application = TestApp::class, sdk = [30])
@@ -58,7 +60,6 @@ class SurveyRepoImplTest : KoinTest {
     fun setup() {
         ShadowLog.stream = System.out
         mockWebServer = MockWebServer()
-        mockWebServer.dispatcher = TestResponseDispatcher()
         mockWebServer.start()
         declare {
             mockWebServer.url("/")
@@ -79,6 +80,7 @@ class SurveyRepoImplTest : KoinTest {
 
     @Test
     fun `survey is fetched saved successfully`() {
+        mockWebServer.enqueueResponse("response.json", HTTP_OK)
         runBlocking {
             val surveyFlow = surveyRepo.getSurvey()
             val result = surveyFlow.first()
@@ -99,5 +101,23 @@ class SurveyRepoImplTest : KoinTest {
             val result = resultFlow.first()
             assertThat(result, allOf(instanceOf(DataResult.ResponseSaved::class.java)))
         }
+    }
+
+    @Test
+    fun `submit response`() = runBlocking {
+        mockWebServer.enqueueResponse("submission_response.json", HTTP_OK)
+        surveyRepo.getSurvey()
+        val response = Response(
+            surveyId = "farmer_survey",
+            answers = listOf(
+                Answer(questionId = "q_farmer_gender", value = "test"),
+                Answer(questionId = "q_farmer_gender", value = "test"),
+                Answer(questionId = "q_size_of_farm", value = "test")
+            )
+        )
+        surveyRepo.saveResponse(response).first()
+        val responseNotSubmitted = surveyDao.getResponsesNotSubmitted()
+        surveyRepo.submitResponses()
+        assertNotEquals(responseNotSubmitted.size, surveyDao.getResponsesNotSubmitted().size)
     }
 }

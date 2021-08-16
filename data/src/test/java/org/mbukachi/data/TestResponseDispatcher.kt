@@ -1,16 +1,21 @@
 package org.mbukachi.data
 
 import okhttp3.mockwebserver.MockResponse
-import okhttp3.mockwebserver.QueueDispatcher
-import okhttp3.mockwebserver.RecordedRequest
+import okhttp3.mockwebserver.MockWebServer
+import okio.buffer
+import okio.source
+import java.nio.charset.StandardCharsets
 
-class TestResponseDispatcher : QueueDispatcher() {
+internal fun MockWebServer.enqueueResponse(fileName: String, code: Int) {
+    val inputStream = javaClass.classLoader?.getResourceAsStream(fileName)
 
-    override fun dispatch(request: RecordedRequest): MockResponse {
-        val mockResponse = MockResponse()
-        mockResponse.setResponseCode(200)
-        val body = javaClass.classLoader.getResource("response.json").readText()
-        mockResponse.setBody(body)
-        return mockResponse
+    val source = inputStream?.let { inputStream.source().buffer() }
+    source?.let {
+        enqueue(
+            MockResponse()
+                .setResponseCode(code)
+                .setBody(source.readString(StandardCharsets.UTF_8))
+
+        )
     }
 }
