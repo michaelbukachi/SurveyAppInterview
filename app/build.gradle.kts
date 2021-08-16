@@ -69,8 +69,7 @@ dependencies {
     implementation("androidx.compose.material:material:${Versions.composeVersion}")
     implementation("androidx.compose.material:material-icons-core:${Versions.composeVersion}")
     implementation("androidx.compose.material:material-icons-extended:${Versions.composeVersion}")
-    implementation("com.google.accompanist:accompanist-pager:${Versions.accompanistVersion}")
-    implementation("com.google.accompanist:accompanist-swiperefresh:${Versions.accompanistVersion}")
+    implementation("com.google.accompanist:accompanist-insets:${Versions.accompanistVersion}")
     implementation("androidx.compose.runtime:runtime-livedata:1.1.0-alpha01")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07")
 
@@ -84,8 +83,6 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutinesVersion}")
 
     implementation("com.jakewharton.timber:timber:5.0.0")
-
-    implementation("com.github.kirich1409:viewbindingpropertydelegate:1.4.4")
 
     implementation("androidx.work:work-runtime-ktx:2.5.0")
 
