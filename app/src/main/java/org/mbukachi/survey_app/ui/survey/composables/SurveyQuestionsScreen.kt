@@ -36,6 +36,7 @@ fun SurveyQuestionsScreen(
                     answer = questionState.answer,
                     onAnswer = {
                         questionState.enableNext = true
+                        questionState.answer = it
                     },
                     modifier = Modifier
                         .fillMaxSize()
