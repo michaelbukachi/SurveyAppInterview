@@ -1,4 +1,4 @@
-package com.chepsi.survey.app
+package org.mbukachi.survey_app
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
